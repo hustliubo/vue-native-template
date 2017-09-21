@@ -9,6 +9,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var PathReplacePlugin = require('../webpack/path-replace')
+var AndroidInitPlugin = require('../webpack/android-init')
 
 var env = config.build.env
 
@@ -95,7 +96,12 @@ var webpackConfig = merge(baseWebpackConfig, {
       }
     ]),
 
-    new PathReplacePlugin(path.resolve(__dirname, '../dist/index.html'))
+    new PathReplacePlugin(path.resolve(__dirname, '../dist/index.html')),
+    new AndroidInitPlugin(
+      path.resolve(__dirname, '../dist'),
+      path.resolve(__dirname, '../android'),
+      path.resolve(__dirname, '../package.json')
+    )
   ]
 })
 
